@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Styles
+---------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    background-color: #220038;
+  }
+  
+  body {
+    @apply text-white bg-gradient-to-b from-[#220038] via-[#150030] to-[#220038];
+  }
+
+  /* Form Element Base Styles */
+  input[type="date"],
+  input[type="time"] {
+    @apply min-h-[42px] h-[42px] w-full text-[0.98rem] appearance-none;
+  }
+
+  select {
+    @apply min-h-[42px] h-[42px] appearance-none pr-10;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 0.5rem center !important;
+    background-repeat: no-repeat !important;
+    background-size: 1.5em 1.5em !important;
+  }
+}
+
+/* Animations
+---------------------------------------------------------------------------- */
+@keyframes typing {
+  0% { opacity: .2; }
+  20% { opacity: 1; }
+  100% { opacity: .2; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes flow {
+  0% { background-position: 0% 50%; opacity: 0.1; }
+  25% { opacity: 0.8; }
+  50% { background-position: 100% 50%; opacity: 0.3; }
+  75% { opacity: 0.8; }
+  100% { background-position: 0% 50%; opacity: 0.1; }
+}
+
+/* Animation Classes
+---------------------------------------------------------------------------- */
+.animate-twinkle {
+  animation: twinkle 3s infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Component Styles
+---------------------------------------------------------------------------- */
+/* Typing Indicator */
+.typing-indicator {
+  @apply inline-block relative w-[100px] h-[60px];
+}
+
+.typing-indicator::before {
+  content: '...';
+  @apply absolute left-0 h-full text-2xl tracking-wider text-[#594383];
+  animation: typing 1.4s infinite;
+}
+
+/* StarField */
+.starfield {
+  z-index: 0 !important;
+}
+
+/* Phone Input Customization
+---------------------------------------------------------------------------- */
+.react-tel-input {
+  @apply relative z-[60];
+
+  /* Flag and Dropdown */
+  .flag-dropdown {
+    @apply bg-transparent border-none;
+  }
+
+  .selected-flag {
+    @apply bg-transparent w-[55px];
+  }
+
+  .selected-flag .arrow {
+    border-top-color: rgba(255, 255, 255, 0.5) !important;
+    
+    &.up {
+      border-bottom-color: rgba(255, 255, 255, 0.5) !important;
+    }
+  }
+
+  /* Country List */
+  .country-list {
+    @apply absolute z-[70] bg-[#220038] w-[300px] mt-2 border border-purple-500/20 rounded-lg max-h-[240px] overflow-y-auto;
+    bottom: auto !important;
+  }
+
+  /* Search Box */
+  .search-box {
+    @apply text-white border-b border-purple-500/20 p-[10px] w-full bg-none;
+
+    &::placeholder {
+      @apply text-white/50;
+    }
+
+    & + div {
+      @apply hidden;
+    }
+  }
+
+  /* Country Items */
+  .country-list .country {
+    @apply p-2 bg-transparent;
+
+    &[aria-selected="true"] {
+      @apply bg-purple-500/20;
+    }
+
+    &:hover {
+      @apply bg-purple-500/20;
+    }
+
+    .country-name {
+      @apply text-white;
+    }
+
+    .dial-code {
+      @apply text-white/50;
+    }
+
+    &[aria-selected="true"] .dial-code {
+      @apply text-white;
+    }
+  }
+}
+
+/* Mapbox Geocoder Customization
+---------------------------------------------------------------------------- */
+.mapboxgl-ctrl-geocoder {
+  @apply w-full max-w-none shadow-none bg-purple-500/10 border border-purple-500/20 rounded-lg h-[42px];
+
+  /* Input */
+  &--input {
+    @apply px-10 h-[42px] text-white bg-transparent rounded-lg;
+
+    &:focus {
+      @apply outline-none;
+    }
+
+    &::placeholder {
+      @apply text-white/50;
+    }
+  }
+
+  /* Icons */
+  &--icon {
+    @apply fill-white/50;
+  }
+
+  &--icon-search {
+    @apply top-2 left-2;
+  }
+
+  &--button {
+    @apply bg-transparent m-0 p-0 top-[7px] right-[7px];
+
+    svg {
+      @apply fill-white/50;
+    }
+  }
+
+  /* Suggestions */
+  .suggestions {
+    @apply bg-[#220038] border border-purple-500/20 rounded-lg mt-2;
+
+    .suggestion {
+      @apply text-white bg-transparent p-3;
+
+      &:hover,
+      &.active {
+        @apply bg-purple-500/20;
+      }
+
+      .suggestion-address {
+        @apply text-white/70;
+      }
+    }
+  }
+}
+
+/* Form Input Styles
+---------------------------------------------------------------------------- */
+/* Date and Time Inputs */
+input[type="date"],
+input[type="time"] {
+  &::-webkit-datetime-edit {
+    @apply p-2 text-white;
+  }
+
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(1) !important;
+    opacity: 0.5 !important;
+  }
+}
